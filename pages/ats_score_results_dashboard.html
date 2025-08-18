@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ATS Score Results Dashboard - ATS Resume Checker</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fatsresume8515back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.6"></script>
+</head>
+<body class="bg-background min-h-screen font-inter">
+    <!-- Header Navigation -->
+    <header class="bg-surface shadow-card sticky top-0 z-50">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <svg class="h-8 w-8 text-primary-600" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="4" y="6" width="24" height="20" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
+                            <path d="M8 12h16M8 16h12M8 20h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            <circle cx="24" cy="8" r="3" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <h1 class="text-xl font-semibold text-text-primary">ATS Resume Checker</h1>
+                    </div>
+                </div>
+
+                <!-- Navigation Links -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="resume_upload_analysis.html" class="text-secondary-500 hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors">Upload</a>
+                        <a href="ats_score_results_dashboard.html" class="bg-primary-50 text-primary-700 px-3 py-2 rounded-md text-sm font-medium">Results</a>
+                        <a href="keyword_analysis_comparison.html" class="text-secondary-500 hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors">Keywords</a>
+                        <a href="resume_optimization_recommendations.html" class="text-secondary-500 hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors">Optimize</a>
+                        <a href="analysis_history_reports.html" class="text-secondary-500 hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors">History</a>
+                    </div>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button type="button" class="text-secondary-500 hover:text-text-primary p-2" onclick="toggleMobileMenu()">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile menu -->
+            <div id="mobile-menu" class="md:hidden hidden">
+                <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-surface border-t border-secondary-200">
+                    <a href="resume_upload_analysis.html" class="text-secondary-500 hover:text-text-primary block px-3 py-2 rounded-md text-base font-medium">Upload</a>
+                    <a href="ats_score_results_dashboard.html" class="bg-primary-50 text-primary-700 block px-3 py-2 rounded-md text-base font-medium">Results</a>
+                    <a href="keyword_analysis_comparison.html" class="text-secondary-500 hover:text-text-primary block px-3 py-2 rounded-md text-base font-medium">Keywords</a>
+                    <a href="resume_optimization_recommendations.html" class="text-secondary-500 hover:text-text-primary block px-3 py-2 rounded-md text-base font-medium">Optimize</a>
+                    <a href="analysis_history_reports.html" class="text-secondary-500 hover:text-text-primary block px-3 py-2 rounded-md text-base font-medium">History</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Breadcrumb -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <nav class="flex" aria-label="Breadcrumb">
+            <ol class="flex items-center space-x-2 text-sm">
+                <li>
+                    <a href="resume_upload_analysis.html" class="text-secondary-500 hover:text-text-primary transition-colors">Upload</a>
+                </li>
+                <li>
+                    <svg class="h-4 w-4 text-secondary-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                </li>
+                <li>
+                    <span class="text-text-primary font-medium">Analysis Results</span>
+                </li>
+            </ol>
+        </nav>
+    </section>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+        <!-- Header Section -->
+        <section class="mb-8">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                    <h1 class="text-2xl md:text-3xl font-semibold text-text-primary mb-2">
+                        ATS Analysis Results
+                    </h1>
+                    <p class="text-secondary-500">
+                        Analysis completed on August 18, 2025 at 4:58 AM
+                    </p>
+                </div>
+                <div class="mt-4 sm:mt-0 flex flex-col sm:flex-row gap-3">
+                    <button onclick="downloadReport()" class="bg-primary-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-primary-700 transition-colors">
+                        <svg class="inline h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                        </svg>
+                        Download Report
+                    </button>
+                    <button onclick="analyzeAnother()" class="border border-secondary-200 text-secondary-600 px-4 py-2 rounded-lg font-medium hover:bg-secondary-50 transition-colors">
+                        Analyze Another
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Desktop Layout: Three Column Grid -->
+        <div class="grid lg:grid-cols-3 gap-8">
+            <!-- Score Summary (Left Column) -->
+            <div class="lg:col-span-1">
+                <!-- Primary Score Card -->
+                <div class="bg-surface rounded-lg shadow-card p-6 mb-6">
+                    <h2 class="text-lg font-semibold text-text-primary mb-6 flex items-center">
+                        <svg class="h-5 w-5 text-primary-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                        </svg>
+                        ATS Compatibility Score
+                    </h2>
+
+                    <!-- Circular Progress Indicator -->
+                    <div class="flex flex-col items-center mb-6">
+                        <div class="relative w-32 h-32 mb-4">
+                            <svg class="w-32 h-32 transform -rotate-90" viewBox="0 0 120 120">
+                                <!-- Background circle -->
+                                <circle cx="60" cy="60" r="50" stroke="#E2E8F0" stroke-width="8" fill="none"/>
+                                <!-- Progress circle -->
+                                <circle cx="60" cy="60" r="50" stroke="#10B981" stroke-width="8" fill="none" stroke-linecap="round" stroke-dasharray="314" stroke-dashoffset="62.8" class="transition-all duration-1000 ease-out"/>
+                            </svg>
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="text-center">
+                                    <div class="text-3xl font-semibold text-success">82%</div>
+                                    <div class="text-sm text-secondary-500">Score</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <div class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-success-100 text-success">
+                                <svg class="h-4 w-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                </svg>
+                                Excellent
+                            </div>
+                            <p class="text-sm text-secondary-500 mt-2">
+                                Your resume is highly compatible with ATS systems
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Score Breakdown -->
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-secondary-600">Keyword Match</span>
+                            <div class="flex items-center">
+                                <div class="w-20 bg-secondary-200 rounded-full h-2 mr-3">
+                                    <div class="bg-success h-2 rounded-full" style="width: 85%"></div>
+                                </div>
+                                <span class="text-sm font-medium text-text-primary">85%</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-secondary-600">Format Quality</span>
+                            <div class="flex items-center">
+                                <div class="w-20 bg-secondary-200 rounded-full h-2 mr-3">
+                                    <div class="bg-success h-2 rounded-full" style="width: 90%"></div>
+                                </div>
+                                <span class="text-sm font-medium text-text-primary">90%</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-secondary-600">Content Structure</span>
+                            <div class="flex items-center">
+                                <div class="w-20 bg-secondary-200 rounded-full h-2 mr-3">
+                                    <div class="bg-warning h-2 rounded-full" style="width: 70%"></div>
+                                </div>
+                                <span class="text-sm font-medium text-text-primary">70%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="bg-surface rounded-lg shadow-card p-6">
+                    <h3 class="text-lg font-semibold text-text-primary mb-4">Quick Actions</h3>
+                    <div class="space-y-3">
+                        <button onclick="saveResults()" class="w-full flex items-center justify-center px-4 py-3 bg-primary-50 text-primary-700 rounded-lg hover:bg-primary-100 transition-colors">
+                            <svg class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
+                            </svg>
+                            Save Results
+                        </button>
+                        <a href="keyword_analysis_comparison.html" class="w-full flex items-center justify-center px-4 py-3 border border-secondary-200 text-secondary-600 rounded-lg hover:bg-secondary-50 transition-colors">
+                            <svg class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
+                            </svg>
+                            View Keywords
+                        </a>
+                        <a href="resume_optimization_recommendations.html" class="w-full flex items-center justify-center px-4 py-3 border border-secondary-200 text-secondary-600 rounded-lg hover:bg-secondary-50 transition-colors">
+                            <svg class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            </svg>
+                            Get Recommendations
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Keyword Comparison (Center Column) -->
+            <div class="lg:col-span-1">
+                <div class="bg-surface rounded-lg shadow-card p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-lg font-semibold text-text-primary flex items-center">
+                            <svg class="h-5 w-5 text-primary-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
+                            </svg>
+                            Keyword Analysis
+                        </h2>
+                        <div class="flex items-center space-x-2">
+                            <label class="flex items-center text-sm text-secondary-600">
+                                <input type="checkbox" id="show-matched" checked onchange="toggleKeywordView()" class="mr-2 rounded border-secondary-300 text-primary-600 focus:ring-primary-500" />
+                                Show Matched
+                            </label>
+                            <label class="flex items-center text-sm text-secondary-600">
+                                <input type="checkbox" id="show-missing" checked onchange="toggleKeywordView()" class="mr-2 rounded border-secondary-300 text-primary-600 focus:ring-primary-500" />
+                                Show Missing
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Keyword Stats -->
+                    <div class="grid grid-cols-3 gap-4 mb-6">
+                        <div class="text-center p-3 bg-success-50 rounded-lg">
+                            <div class="text-2xl font-semibold text-success">24</div>
+                            <div class="text-sm text-success">Matched</div>
+                        </div>
+                        <div class="text-center p-3 bg-warning-50 rounded-lg">
+                            <div class="text-2xl font-semibold text-warning">8</div>
+                            <div class="text-sm text-warning">Missing</div>
+                        </div>
+                        <div class="text-center p-3 bg-secondary-100 rounded-lg">
+                            <div class="text-2xl font-semibold text-secondary-600">32</div>
+                            <div class="text-sm text-secondary-600">Total</div>
+                        </div>
+                    </div>
+
+                    <!-- Expandable Keyword Sections -->
+                    <div class="space-y-4">
+                        <!-- Matched Keywords -->
+                        <div class="border border-secondary-200 rounded-lg">
+                            <button onclick="toggleSection('matched-keywords')" class="w-full flex items-center justify-between p-4 text-left hover:bg-secondary-50 transition-colors">
+                                <div class="flex items-center">
+                                    <svg class="h-4 w-4 text-success mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span class="font-medium text-text-primary">Matched Keywords (24)</span>
+                                </div>
+                                <svg id="matched-keywords-icon" class="h-4 w-4 text-secondary-400 transform transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                </svg>
+                            </button>
+                            <div id="matched-keywords" class="hidden px-4 pb-4">
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-2 py-1 bg-success-100 text-success text-sm rounded">JavaScript</span>
+                                    <span class="px-2 py-1 bg-success-100 text-success text-sm rounded">React</span>
+                                    <span class="px-2 py-1 bg-success-100 text-success text-sm rounded">Node.js</span>
+                                    <span class="px-2 py-1 bg-success-100 text-success text-sm rounded">Python</span>
+                                    <span class="px-2 py-1 bg-success-100 text-success text-sm rounded">SQL</span>
+                                    <span class="px-2 py-1 bg-success-100 text-success text-sm rounded">Git</span>
+                                    <span class="px-2 py-1 bg-success-100 text-success text-sm rounded">Agile</span>
+                                    <span class="px-2 py-1 bg-success-100 text-success text-sm rounded">AWS</span>
+                                    <span class="px-2 py-1 bg-success-100 text-success text-sm rounded">Docker</span>
+                                    <span class="px-2 py-1 bg-success-100 text-success text-sm rounded">API</span>
+                                    <span class="px-2 py-1 bg-success-100 text-success text-sm rounded">MongoDB</span>
+                                    <span class="px-2 py-1 bg-success-100 text-success text-sm rounded">Express</span>
+                                    <span class="px-2 py-1 bg-success-100 text-success text-sm rounded">HTML</span>
+                                    <span class="px-2 py-1 bg-success-100 text-success text-sm rounded">CSS</span>
+                                    <span class="px-2 py-1 bg-success-100 text-success text-sm rounded">TypeScript</span>
+                                    <span class="px-2 py-1 bg-success-100 text-success text-sm rounded">Redux</span>
+                                    <span class="px-2 py-1 bg-success-100 text-success text-sm rounded">Testing</span>
+                                    <span class="px-2 py-1 bg-success-100 text-success text-sm rounded">CI/CD</span>
+                                    <span class="px-2 py-1 bg-success-100 text-success text-sm rounded">Microservices</span>
+                                    <span class="px-2 py-1 bg-success-100 text-success text-sm rounded">REST</span>
+                                    <span class="px-2 py-1 bg-success-100 text-success text-sm rounded">GraphQL</span>
+                                    <span class="px-2 py-1 bg-success-100 text-success text-sm rounded">Kubernetes</span>
+                                    <span class="px-2 py-1 bg-success-100 text-success text-sm rounded">Linux</span>
+                                    <span class="px-2 py-1 bg-success-100 text-success text-sm rounded">Scrum</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Missing Keywords -->
+                        <div class="border border-secondary-200 rounded-lg">
+                            <button onclick="toggleSection('missing-keywords')" class="w-full flex items-center justify-between p-4 text-left hover:bg-secondary-50 transition-colors">
+                                <div class="flex items-center">
+                                    <svg class="h-4 w-4 text-error mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span class="font-medium text-text-primary">Missing Keywords (8)</span>
+                                </div>
+                                <svg id="missing-keywords-icon" class="h-4 w-4 text-secondary-400 transform transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                </svg>
+                            </button>
+                            <div id="missing-keywords" class="hidden px-4 pb-4">
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-2 py-1 bg-error-100 text-error text-sm rounded">Machine Learning</span>
+                                    <span class="px-2 py-1 bg-error-100 text-error text-sm rounded">TensorFlow</span>
+                                    <span class="px-2 py-1 bg-error-100 text-error text-sm rounded">Data Science</span>
+                                    <span class="px-2 py-1 bg-error-100 text-error text-sm rounded">Pandas</span>
+                                    <span class="px-2 py-1 bg-error-100 text-error text-sm rounded">NumPy</span>
+                                    <span class="px-2 py-1 bg-error-100 text-error text-sm rounded">Jupyter</span>
+                                    <span class="px-2 py-1 bg-error-100 text-error text-sm rounded">Tableau</span>
+                                    <span class="px-2 py-1 bg-error-100 text-error text-sm rounded">Power BI</span>
+                                </div>
+                                <div class="mt-3 p-3 bg-warning-50 rounded-lg">
+                                    <p class="text-sm text-warning">
+                                        <svg class="inline h-4 w-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                                        </svg>
+                                        Consider adding these keywords to improve your ATS score
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Keyword Density Chart -->
+                    <div class="mt-6">
+                        <h3 class="text-sm font-medium text-text-primary mb-3">Top Keywords Density</h3>
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-secondary-600">JavaScript</span>
+                                <div class="flex items-center">
+                                    <div class="w-24 bg-secondary-200 rounded-full h-2 mr-2">
+                                        <div class="bg-primary-600 h-2 rounded-full" style="width: 90%"></div>
+                                    </div>
+                                    <span class="text-xs text-secondary-500 w-8">9x</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-secondary-600">React</span>
+                                <div class="flex items-center">
+                                    <div class="w-24 bg-secondary-200 rounded-full h-2 mr-2">
+                                        <div class="bg-primary-600 h-2 rounded-full" style="width: 70%"></div>
+                                    </div>
+                                    <span class="text-xs text-secondary-500 w-8">7x</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-secondary-600">Node.js</span>
+                                <div class="flex items-center">
+                                    <div class="w-24 bg-secondary-200 rounded-full h-2 mr-2">
+                                        <div class="bg-primary-600 h-2 rounded-full" style="width: 60%"></div>
+                                    </div>
+                                    <span class="text-xs text-secondary-500 w-8">6x</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-secondary-600">Python</span>
+                                <div class="flex items-center">
+                                    <div class="w-24 bg-secondary-200 rounded-full h-2 mr-2">
+                                        <div class="bg-primary-600 h-2 rounded-full" style="width: 50%"></div>
+                                    </div>
+                                    <span class="text-xs text-secondary-500 w-8">5x</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-secondary-600">AWS</span>
+                                <div class="flex items-center">
+                                    <div class="w-24 bg-secondary-200 rounded-full h-2 mr-2">
+                                        <div class="bg-primary-600 h-2 rounded-full" style="width: 40%"></div>
+                                    </div>
+                                    <span class="text-xs text-secondary-500 w-8">4x</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recommendations (Right Column) -->
+            <div class="lg:col-span-1">
+                <div class="bg-surface rounded-lg shadow-card p-6">
+                    <h2 class="text-lg font-semibold text-text-primary mb-6 flex items-center">
+                        <svg class="h-5 w-5 text-primary-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                        Priority Recommendations
+                    </h2>
+
+                    <div class="space-y-4">
+                        <!-- High Priority -->
+                        <div class="border-l-4 border-error pl-4">
+                            <div class="flex items-center mb-2">
+                                <svg class="h-4 w-4 text-error mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                                </svg>
+                                <span class="text-sm font-medium text-error">High Priority</span>
+                            </div>
+                            <h3 class="font-medium text-text-primary mb-1">Add Missing Technical Skills</h3>
+                            <p class="text-sm text-secondary-600 mb-2">
+                                Include "Machine Learning", "TensorFlow", and "Data Science" in your skills section to match job requirements.
+                            </p>
+                            <button onclick="expandRecommendation('rec-1')" class="text-xs text-primary-600 hover:text-primary-700 font-medium">
+                                View Details →
+                            </button>
+                            <div id="rec-1" class="hidden mt-2 p-3 bg-secondary-50 rounded text-sm text-secondary-600">
+                                <p class="mb-2"><strong>Where to add:</strong> Skills section, relevant project descriptions</p>
+                                <p class="mb-2"><strong>How to implement:</strong> Add these keywords naturally in context of your experience</p>
+                                <p><strong>Impact:</strong> Could improve your score by 8-12 points</p>
+                            </div>
+                        </div>
+
+                        <!-- Medium Priority -->
+                        <div class="border-l-4 border-warning pl-4">
+                            <div class="flex items-center mb-2">
+                                <svg class="h-4 w-4 text-warning mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
+                                </svg>
+                                <span class="text-sm font-medium text-warning">Medium Priority</span>
+                            </div>
+                            <h3 class="font-medium text-text-primary mb-1">Improve Section Headers</h3>
+                            <p class="text-sm text-secondary-600 mb-2">
+                                Use standard ATS-friendly section headers like "Professional Experience" instead of "Work History".
+                            </p>
+                            <button onclick="expandRecommendation('rec-2')" class="text-xs text-primary-600 hover:text-primary-700 font-medium">
+                                View Details →
+                            </button>
+                            <div id="rec-2" class="hidden mt-2 p-3 bg-secondary-50 rounded text-sm text-secondary-600">
+                                <p class="mb-2"><strong>Recommended headers:</strong> Professional Experience, Education, Skills, Certifications</p>
+                                <p class="mb-2"><strong>Avoid:</strong> Creative headers like "My Journey", "What I've Done"</p>
+                                <p><strong>Impact:</strong> Improves ATS parsing accuracy</p>
+                            </div>
+                        </div>
+
+                        <!-- Low Priority -->
+                        <div class="border-l-4 border-success pl-4">
+                            <div class="flex items-center mb-2">
+                                <svg class="h-4 w-4 text-success mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                </svg>
+                                <span class="text-sm font-medium text-success">Low Priority</span>
+                            </div>
+                            <h3 class="font-medium text-text-primary mb-1">Quantify Achievements</h3>
+                            <p class="text-sm text-secondary-600 mb-2">
+                                Add more specific metrics and numbers to demonstrate impact in your role descriptions.
+                            </p>
+                            <button onclick="expandRecommendation('rec-3')" class="text-xs text-primary-600 hover:text-primary-700 font-medium">
+                                View Details →
+                            </button>
+                            <div id="rec-3" class="hidden mt-2 p-3 bg-secondary-50 rounded text-sm text-secondary-600">
+                                <p class="mb-2"><strong>Examples:</strong> "Improved performance by 25%", "Managed team of 8 developers"</p>
+                                <p class="mb-2"><strong>Focus areas:</strong> Performance improvements, team size, project scope</p>
+                                <p><strong>Impact:</strong> Makes achievements more compelling to both ATS and recruiters</p>
+                            </div>
+                        </div>
+
+                        <!-- Additional Recommendations -->
+                        <div class="border-l-4 border-secondary-300 pl-4">
+                            <div class="flex items-center mb-2">
+                                <svg class="h-4 w-4 text-secondary-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+                                </svg>
+                                <span class="text-sm font-medium text-secondary-600">Additional Tips</span>
+                            </div>
+                            <h3 class="font-medium text-text-primary mb-1">Format Optimization</h3>
+                            <p class="text-sm text-secondary-600 mb-2">
+                                Your resume format is already ATS-friendly. Consider using bullet points consistently throughout.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Action Button -->
+                    <div class="mt-6 pt-6 border-t border-secondary-200">
+                        <a href="resume_optimization_recommendations.html" class="w-full flex items-center justify-center px-4 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors">
+                            <svg class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            </svg>
+                            View All Recommendations
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-surface border-t border-secondary-200 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="text-center text-secondary-500 text-sm">
+                <p>&copy; 2025 ATS Resume Checker. All rights reserved.</p>
+                <p class="mt-2">Helping job seekers optimize their resumes for ATS success.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Toggle expandable sections
+        function toggleSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            const icon = document.getElementById(sectionId + '-icon');
+            
+            section.classList.toggle('hidden');
+            icon.classList.toggle('rotate-180');
+        }
+
+        // Toggle keyword view filters
+        function toggleKeywordView() {
+            const showMatched = document.getElementById('show-matched').checked;
+            const showMissing = document.getElementById('show-missing').checked;
+            
+            // This would filter the keyword display in a real implementation
+            console.log('Show matched:', showMatched, 'Show missing:', showMissing);
+        }
+
+        // Expand recommendation details
+        function expandRecommendation(recId) {
+            const rec = document.getElementById(recId);
+            rec.classList.toggle('hidden');
+        }
+
+        // Action functions
+        function downloadReport() {
+            // Simulate report download
+            const link = document.createElement('a');
+            link.href = 'data:text/plain;charset=utf-8,ATS Analysis Report\n\nScore: 82%\nCategory: Excellent\n\nMatched Keywords: 24\nMissing Keywords: 8\n\nRecommendations:\n1. Add missing technical skills\n2. Improve section headers\n3. Quantify achievements';
+            link.download = 'ats-analysis-report.txt';
+            link.click();
+        }
+
+        function analyzeAnother() {
+            window.location.href = 'resume_upload_analysis.html';
+        }
+
+        function saveResults() {
+            // Simulate saving results
+            alert('Results saved successfully! You can view them in your analysis history.');
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate the circular progress indicator
+            setTimeout(() => {
+                const circle = document.querySelector('circle[stroke="#10B981"]');
+                if (circle) {
+                    circle.style.strokeDashoffset = '62.8'; // 82% of 314
+                }
+            }, 500);
+        });
+    </script>
+<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+</body>
+</html>

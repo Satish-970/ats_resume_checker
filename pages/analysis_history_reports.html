@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Analysis History & Reports - ATS Resume Checker</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fatsresume8515back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.6"></script>
+</head>
+<body class="bg-background min-h-screen font-inter">
+    <!-- Header Navigation -->
+    <header class="bg-surface shadow-card sticky top-0 z-50">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <svg class="h-8 w-8 text-primary-600" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="4" y="6" width="24" height="20" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
+                            <path d="M8 12h16M8 16h12M8 20h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            <circle cx="24" cy="8" r="3" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <h1 class="text-xl font-semibold text-text-primary">ATS Resume Checker</h1>
+                    </div>
+                </div>
+
+                <!-- Navigation Links -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="resume_upload_analysis.html" class="text-secondary-500 hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors">Upload</a>
+                        <a href="ats_score_results_dashboard.html" class="text-secondary-500 hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors">Results</a>
+                        <a href="keyword_analysis_comparison.html" class="text-secondary-500 hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors">Keywords</a>
+                        <a href="resume_optimization_recommendations.html" class="text-secondary-500 hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors">Optimize</a>
+                        <a href="analysis_history_reports.html" class="bg-primary-50 text-primary-700 px-3 py-2 rounded-md text-sm font-medium">History</a>
+                    </div>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button type="button" class="text-secondary-500 hover:text-text-primary p-2" onclick="toggleMobileMenu()">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile menu -->
+            <div id="mobile-menu" class="md:hidden hidden">
+                <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-surface border-t border-secondary-200">
+                    <a href="resume_upload_analysis.html" class="text-secondary-500 hover:text-text-primary block px-3 py-2 rounded-md text-base font-medium">Upload</a>
+                    <a href="ats_score_results_dashboard.html" class="text-secondary-500 hover:text-text-primary block px-3 py-2 rounded-md text-base font-medium">Results</a>
+                    <a href="keyword_analysis_comparison.html" class="text-secondary-500 hover:text-text-primary block px-3 py-2 rounded-md text-base font-medium">Keywords</a>
+                    <a href="resume_optimization_recommendations.html" class="text-secondary-500 hover:text-text-primary block px-3 py-2 rounded-md text-base font-medium">Optimize</a>
+                    <a href="analysis_history_reports.html" class="bg-primary-50 text-primary-700 block px-3 py-2 rounded-md text-base font-medium">History</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Page Header -->
+        <section class="mb-8">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                    <h1 class="text-3xl font-semibold text-text-primary mb-2">Analysis History</h1>
+                    <p class="text-secondary-500">Track your resume optimization progress and access detailed reports</p>
+                </div>
+                <div class="mt-4 sm:mt-0 flex space-x-3">
+                    <button onclick="toggleComparisonMode()" id="comparison-btn" class="px-4 py-2 border border-secondary-200 text-secondary-600 rounded-lg hover:bg-secondary-50 transition-colors">
+                        <svg class="inline h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l3-3 3 3v13M9 19h6M9 19H7a2 2 0 01-2-2V5a2 2 0 012-2h2M9 19v-6a2 2 0 012-2h2a2 2 0 012 2v6"/>
+                        </svg>
+                        Compare
+                    </button>
+                    <button onclick="downloadAllReports()" class="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors">
+                        <svg class="inline h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                        </svg>
+                        Export All
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Filters and Search -->
+        <section class="bg-surface rounded-lg shadow-card p-6 mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <!-- Search -->
+                <div class="md:col-span-2">
+                    <div class="relative">
+                        <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-secondary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        </svg>
+                        <input type="text" id="search-input" placeholder="Search by job title, company, or keywords..." class="w-full pl-10 pr-4 py-2 border border-secondary-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent" oninput="filterAnalyses()" />
+                    </div>
+                </div>
+
+                <!-- Date Filter -->
+                <div>
+                    <select id="date-filter" class="w-full px-3 py-2 border border-secondary-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent" onchange="filterAnalyses()">
+                        <option value>All Time</option>
+                        <option value="today">Today</option>
+                        <option value="week">This Week</option>
+                        <option value="month">This Month</option>
+                        <option value="quarter">Last 3 Months</option>
+                    </select>
+                </div>
+
+                <!-- Score Filter -->
+                <div>
+                    <select id="score-filter" class="w-full px-3 py-2 border border-secondary-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent" onchange="filterAnalyses()">
+                        <option value>All Scores</option>
+                        <option value="excellent">Excellent (80%+)</option>
+                        <option value="good">Good (65-79%)</option>
+                        <option value="moderate">Moderate (50-64%)</option>
+                        <option value="needs-improvement">Needs Improvement (<50%)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Advanced Filters Toggle -->
+            <div class="mt-4">
+                <button onclick="toggleAdvancedFilters()" class="text-primary-600 hover:text-primary-700 text-sm font-medium flex items-center">
+                    <svg id="filter-chevron" class="h-4 w-4 mr-1 transform transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                    Advanced Filters
+                </button>
+                
+                <div id="advanced-filters" class="hidden mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-text-primary mb-1">Industry</label>
+                        <select id="industry-filter" class="w-full px-3 py-2 border border-secondary-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent" onchange="filterAnalyses()">
+                            <option value>All Industries</option>
+                            <option value="technology">Technology</option>
+                            <option value="healthcare">Healthcare</option>
+                            <option value="finance">Finance</option>
+                            <option value="marketing">Marketing</option>
+                            <option value="education">Education</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-text-primary mb-1">Company Size</label>
+                        <select id="company-filter" class="w-full px-3 py-2 border border-secondary-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent" onchange="filterAnalyses()">
+                            <option value>All Companies</option>
+                            <option value="startup">Startup (1-50)</option>
+                            <option value="medium">Medium (51-500)</option>
+                            <option value="large">Large (500+)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-text-primary mb-1">Keywords Match</label>
+                        <select id="keyword-filter" class="w-full px-3 py-2 border border-secondary-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent" onchange="filterAnalyses()">
+                            <option value>All Matches</option>
+                            <option value="high">High Match (80%+)</option>
+                            <option value="medium">Medium Match (50-79%)</option>
+                            <option value="low">Low Match (<50%)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Progress Overview -->
+        <section class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="bg-surface rounded-lg shadow-card p-6">
+                <div class="flex items-center">
+                    <div class="p-2 bg-primary-50 rounded-lg">
+                        <svg class="h-6 w-6 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                        </svg>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-secondary-500">Total Analyses</p>
+                        <p class="text-2xl font-semibold text-text-primary">24</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-surface rounded-lg shadow-card p-6">
+                <div class="flex items-center">
+                    <div class="p-2 bg-success-50 rounded-lg">
+                        <svg class="h-6 w-6 text-success" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
+                        </svg>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-secondary-500">Avg Score</p>
+                        <p class="text-2xl font-semibold text-text-primary">73%</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-surface rounded-lg shadow-card p-6">
+                <div class="flex items-center">
+                    <div class="p-2 bg-warning-50 rounded-lg">
+                        <svg class="h-6 w-6 text-warning" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-secondary-500">This Month</p>
+                        <p class="text-2xl font-semibold text-text-primary">8</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-surface rounded-lg shadow-card p-6">
+                <div class="flex items-center">
+                    <div class="p-2 bg-accent-50 rounded-lg">
+                        <svg class="h-6 w-6 text-accent-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-secondary-500">Improved</p>
+                        <p class="text-2xl font-semibold text-text-primary">+12%</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Progress Chart -->
+        <section class="bg-surface rounded-lg shadow-card p-6 mb-8">
+            <h3 class="text-lg font-semibold text-text-primary mb-4">Score Improvement Trend</h3>
+            <div class="h-64 flex items-end justify-between space-x-2">
+                <!-- Simple SVG Chart -->
+                <svg class="w-full h-full" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Grid lines -->
+                    <defs>
+                        <pattern id="grid" width="40" height="20" patternUnits="userSpaceOnUse">
+                            <path d="M 40 0 L 0 0 0 20" fill="none" stroke="#E2E8F0" stroke-width="1"/>
+                        </pattern>
+                    </defs>
+                    <rect width="100%" height="100%" fill="url(#grid)"/>
+                    
+                    <!-- Chart line -->
+                    <polyline fill="none" stroke="#2563EB" stroke-width="3" points="20,160 60,140 100,120 140,110 180,100 220,85 260,75 300,70 340,65 380,60"/>
+                    
+                    <!-- Data points -->
+                    <circle cx="20" cy="160" r="4" fill="#2563EB"/>
+                    <circle cx="60" cy="140" r="4" fill="#2563EB"/>
+                    <circle cx="100" cy="120" r="4" fill="#2563EB"/>
+                    <circle cx="140" cy="110" r="4" fill="#2563EB"/>
+                    <circle cx="180" cy="100" r="4" fill="#2563EB"/>
+                    <circle cx="220" cy="85" r="4" fill="#2563EB"/>
+                    <circle cx="260" cy="75" r="4" fill="#2563EB"/>
+                    <circle cx="300" cy="70" r="4" fill="#2563EB"/>
+                    <circle cx="340" cy="65" r="4" fill="#2563EB"/>
+                    <circle cx="380" cy="60" r="4" fill="#2563EB"/>
+                </svg>
+            </div>
+            <div class="flex justify-between text-xs text-secondary-500 mt-2">
+                <span>Jan</span>
+                <span>Feb</span>
+                <span>Mar</span>
+                <span>Apr</span>
+                <span>May</span>
+                <span>Jun</span>
+                <span>Jul</span>
+                <span>Aug</span>
+            </div>
+        </section>
+
+        <!-- Analysis History Cards -->
+        <section>
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-xl font-semibold text-text-primary">Recent Analyses</h2>
+                <div class="flex items-center space-x-2">
+                    <button onclick="toggleView('card')" id="card-view-btn" class="p-2 bg-primary-50 text-primary-600 rounded-lg">
+                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
+                        </svg>
+                    </button>
+                    <button onclick="toggleView('table')" id="table-view-btn" class="p-2 text-secondary-500 hover:bg-secondary-50 rounded-lg">
+                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Card View -->
+            <div id="card-view" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Analysis Card 1 -->
+                <div class="analysis-card bg-surface rounded-lg shadow-card hover:shadow-interactive transition-all duration-300 cursor-pointer" onclick="toggleCardExpansion(this)">
+                    <div class="p-6">
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-text-primary mb-1">Senior Software Engineer</h3>
+                                <p class="text-secondary-500 text-sm">Google Inc.</p>
+                                <p class="text-xs text-secondary-400 mt-1">Analyzed on Aug 17, 2025</p>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <input type="checkbox" class="comparison-checkbox hidden" onchange="updateComparisonMode()" />
+                                <div class="score-badge bg-success-50 text-success px-3 py-1 rounded-full text-sm font-medium">85%</div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-3 mb-4">
+                            <div class="flex justify-between text-sm">
+                                <span class="text-secondary-500">Keyword Match</span>
+                                <span class="text-text-primary font-medium">78%</span>
+                            </div>
+                            <div class="w-full bg-secondary-200 rounded-full h-2">
+                                <div class="bg-success h-2 rounded-full" style="width: 78%"></div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between">
+                            <div class="flex space-x-2">
+                                <span class="px-2 py-1 bg-primary-50 text-primary-700 text-xs rounded-full">Technology</span>
+                                <span class="px-2 py-1 bg-secondary-100 text-secondary-600 text-xs rounded-full">Remote</span>
+                            </div>
+                            <button onclick="event.stopPropagation(); downloadReport('senior-software-engineer')" class="text-primary-600 hover:text-primary-700 p-1">
+                                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <!-- Expandable Content -->
+                        <div class="expanded-content hidden mt-6 pt-6 border-t border-secondary-200">
+                            <div class="grid grid-cols-2 gap-4 mb-4">
+                                <div>
+                                    <p class="text-xs text-secondary-500 mb-1">Missing Keywords</p>
+                                    <p class="text-sm text-text-primary">5 identified</p>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-secondary-500 mb-1">Recommendations</p>
+                                    <p class="text-sm text-text-primary">8 suggestions</p>
+                                </div>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button onclick="event.stopPropagation(); viewFullReport('senior-software-engineer')" class="flex-1 px-3 py-2 bg-primary-600 text-white text-sm rounded-lg hover:bg-primary-700 transition-colors">
+                                    View Full Report
+                                </button>
+                                <button onclick="event.stopPropagation(); reAnalyze('senior-software-engineer')" class="px-3 py-2 border border-secondary-200 text-secondary-600 text-sm rounded-lg hover:bg-secondary-50 transition-colors">
+                                    Re-analyze
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analysis Card 2 -->
+                <div class="analysis-card bg-surface rounded-lg shadow-card hover:shadow-interactive transition-all duration-300 cursor-pointer" onclick="toggleCardExpansion(this)">
+                    <div class="p-6">
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-text-primary mb-1">Product Manager</h3>
+                                <p class="text-secondary-500 text-sm">Microsoft Corporation</p>
+                                <p class="text-xs text-secondary-400 mt-1">Analyzed on Aug 16, 2025</p>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <input type="checkbox" class="comparison-checkbox hidden" onchange="updateComparisonMode()" />
+                                <div class="score-badge bg-warning-50 text-warning px-3 py-1 rounded-full text-sm font-medium">72%</div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-3 mb-4">
+                            <div class="flex justify-between text-sm">
+                                <span class="text-secondary-500">Keyword Match</span>
+                                <span class="text-text-primary font-medium">65%</span>
+                            </div>
+                            <div class="w-full bg-secondary-200 rounded-full h-2">
+                                <div class="bg-warning h-2 rounded-full" style="width: 65%"></div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between">
+                            <div class="flex space-x-2">
+                                <span class="px-2 py-1 bg-primary-50 text-primary-700 text-xs rounded-full">Technology</span>
+                                <span class="px-2 py-1 bg-secondary-100 text-secondary-600 text-xs rounded-full">Hybrid</span>
+                            </div>
+                            <button onclick="event.stopPropagation(); downloadReport('product-manager')" class="text-primary-600 hover:text-primary-700 p-1">
+                                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <!-- Expandable Content -->
+                        <div class="expanded-content hidden mt-6 pt-6 border-t border-secondary-200">
+                            <div class="grid grid-cols-2 gap-4 mb-4">
+                                <div>
+                                    <p class="text-xs text-secondary-500 mb-1">Missing Keywords</p>
+                                    <p class="text-sm text-text-primary">8 identified</p>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-secondary-500 mb-1">Recommendations</p>
+                                    <p class="text-sm text-text-primary">12 suggestions</p>
+                                </div>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button onclick="event.stopPropagation(); viewFullReport('product-manager')" class="flex-1 px-3 py-2 bg-primary-600 text-white text-sm rounded-lg hover:bg-primary-700 transition-colors">
+                                    View Full Report
+                                </button>
+                                <button onclick="event.stopPropagation(); reAnalyze('product-manager')" class="px-3 py-2 border border-secondary-200 text-secondary-600 text-sm rounded-lg hover:bg-secondary-50 transition-colors">
+                                    Re-analyze
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analysis Card 3 -->
+                <div class="analysis-card bg-surface rounded-lg shadow-card hover:shadow-interactive transition-all duration-300 cursor-pointer" onclick="toggleCardExpansion(this)">
+                    <div class="p-6">
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-text-primary mb-1">Data Analyst</h3>
+                                <p class="text-secondary-500 text-sm">Amazon Web Services</p>
+                                <p class="text-xs text-secondary-400 mt-1">Analyzed on Aug 15, 2025</p>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <input type="checkbox" class="comparison-checkbox hidden" onchange="updateComparisonMode()" />
+                                <div class="score-badge bg-error-50 text-error px-3 py-1 rounded-full text-sm font-medium">58%</div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-3 mb-4">
+                            <div class="flex justify-between text-sm">
+                                <span class="text-secondary-500">Keyword Match</span>
+                                <span class="text-text-primary font-medium">45%</span>
+                            </div>
+                            <div class="w-full bg-secondary-200 rounded-full h-2">
+                                <div class="bg-error h-2 rounded-full" style="width: 45%"></div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between">
+                            <div class="flex space-x-2">
+                                <span class="px-2 py-1 bg-primary-50 text-primary-700 text-xs rounded-full">Technology</span>
+                                <span class="px-2 py-1 bg-secondary-100 text-secondary-600 text-xs rounded-full">On-site</span>
+                            </div>
+                            <button onclick="event.stopPropagation(); downloadReport('data-analyst')" class="text-primary-600 hover:text-primary-700 p-1">
+                                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <!-- Expandable Content -->
+                        <div class="expanded-content hidden mt-6 pt-6 border-t border-secondary-200">
+                            <div class="grid grid-cols-2 gap-4 mb-4">
+                                <div>
+                                    <p class="text-xs text-secondary-500 mb-1">Missing Keywords</p>
+                                    <p class="text-sm text-text-primary">12 identified</p>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-secondary-500 mb-1">Recommendations</p>
+                                    <p class="text-sm text-text-primary">15 suggestions</p>
+                                </div>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button onclick="event.stopPropagation(); viewFullReport('data-analyst')" class="flex-1 px-3 py-2 bg-primary-600 text-white text-sm rounded-lg hover:bg-primary-700 transition-colors">
+                                    View Full Report
+                                </button>
+                                <button onclick="event.stopPropagation(); reAnalyze('data-analyst')" class="px-3 py-2 border border-secondary-200 text-secondary-600 text-sm rounded-lg hover:bg-secondary-50 transition-colors">
+                                    Re-analyze
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analysis Card 4 -->
+                <div class="analysis-card bg-surface rounded-lg shadow-card hover:shadow-interactive transition-all duration-300 cursor-pointer" onclick="toggleCardExpansion(this)">
+                    <div class="p-6">
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-text-primary mb-1">UX Designer</h3>
+                                <p class="text-secondary-500 text-sm">Adobe Systems</p>
+                                <p class="text-xs text-secondary-400 mt-1">Analyzed on Aug 14, 2025</p>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <input type="checkbox" class="comparison-checkbox hidden" onchange="updateComparisonMode()" />
+                                <div class="score-badge bg-success-50 text-success px-3 py-1 rounded-full text-sm font-medium">91%</div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-3 mb-4">
+                            <div class="flex justify-between text-sm">
+                                <span class="text-secondary-500">Keyword Match</span>
+                                <span class="text-text-primary font-medium">88%</span>
+                            </div>
+                            <div class="w-full bg-secondary-200 rounded-full h-2">
+                                <div class="bg-success h-2 rounded-full" style="width: 88%"></div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between">
+                            <div class="flex space-x-2">
+                                <span class="px-2 py-1 bg-primary-50 text-primary-700 text-xs rounded-full">Design</span>
+                                <span class="px-2 py-1 bg-secondary-100 text-secondary-600 text-xs rounded-full">Remote</span>
+                            </div>
+                            <button onclick="event.stopPropagation(); downloadReport('ux-designer')" class="text-primary-600 hover:text-primary-700 p-1">
+                                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <!-- Expandable Content -->
+                        <div class="expanded-content hidden mt-6 pt-6 border-t border-secondary-200">
+                            <div class="grid grid-cols-2 gap-4 mb-4">
+                                <div>
+                                    <p class="text-xs text-secondary-500 mb-1">Missing Keywords</p>
+                                    <p class="text-sm text-text-primary">2 identified</p>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-secondary-500 mb-1">Recommendations</p>
+                                    <p class="text-sm text-text-primary">3 suggestions</p>
+                                </div>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button onclick="event.stopPropagation(); viewFullReport('ux-designer')" class="flex-1 px-3 py-2 bg-primary-600 text-white text-sm rounded-lg hover:bg-primary-700 transition-colors">
+                                    View Full Report
+                                </button>
+                                <button onclick="event.stopPropagation(); reAnalyze('ux-designer')" class="px-3 py-2 border border-secondary-200 text-secondary-600 text-sm rounded-lg hover:bg-secondary-50 transition-colors">
+                                    Re-analyze
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analysis Card 5 -->
+                <div class="analysis-card bg-surface rounded-lg shadow-card hover:shadow-interactive transition-all duration-300 cursor-pointer" onclick="toggleCardExpansion(this)">
+                    <div class="p-6">
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-text-primary mb-1">Marketing Manager</h3>
+                                <p class="text-secondary-500 text-sm">HubSpot Inc.</p>
+                                <p class="text-xs text-secondary-400 mt-1">Analyzed on Aug 13, 2025</p>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <input type="checkbox" class="comparison-checkbox hidden" onchange="updateComparisonMode()" />
+                                <div class="score-badge bg-warning-50 text-warning px-3 py-1 rounded-full text-sm font-medium">67%</div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-3 mb-4">
+                            <div class="flex justify-between text-sm">
+                                <span class="text-secondary-500">Keyword Match</span>
+                                <span class="text-text-primary font-medium">62%</span>
+                            </div>
+                            <div class="w-full bg-secondary-200 rounded-full h-2">
+                                <div class="bg-warning h-2 rounded-full" style="width: 62%"></div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between">
+                            <div class="flex space-x-2">
+                                <span class="px-2 py-1 bg-primary-50 text-primary-700 text-xs rounded-full">Marketing</span>
+                                <span class="px-2 py-1 bg-secondary-100 text-secondary-600 text-xs rounded-full">Hybrid</span>
+                            </div>
+                            <button onclick="event.stopPropagation(); downloadReport('marketing-manager')" class="text-primary-600 hover:text-primary-700 p-1">
+                                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <!-- Expandable Content -->
+                        <div class="expanded-content hidden mt-6 pt-6 border-t border-secondary-200">
+                            <div class="grid grid-cols-2 gap-4 mb-4">
+                                <div>
+                                    <p class="text-xs text-secondary-500 mb-1">Missing Keywords</p>
+                                    <p class="text-sm text-text-primary">7 identified</p>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-secondary-500 mb-1">Recommendations</p>
+                                    <p class="text-sm text-text-primary">10 suggestions</p>
+                                </div>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button onclick="event.stopPropagation(); viewFullReport('marketing-manager')" class="flex-1 px-3 py-2 bg-primary-600 text-white text-sm rounded-lg hover:bg-primary-700 transition-colors">
+                                    View Full Report
+                                </button>
+                                <button onclick="event.stopPropagation(); reAnalyze('marketing-manager')" class="px-3 py-2 border border-secondary-200 text-secondary-600 text-sm rounded-lg hover:bg-secondary-50 transition-colors">
+                                    Re-analyze
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analysis Card 6 -->
+                <div class="analysis-card bg-surface rounded-lg shadow-card hover:shadow-interactive transition-all duration-300 cursor-pointer" onclick="toggleCardExpansion(this)">
+                    <div class="p-6">
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-text-primary mb-1">DevOps Engineer</h3>
+                                <p class="text-secondary-500 text-sm">Netflix Inc.</p>
+                                <p class="text-xs text-secondary-400 mt-1">Analyzed on Aug 12, 2025</p>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <input type="checkbox" class="comparison-checkbox hidden" onchange="updateComparisonMode()" />
+                                <div class="score-badge bg-success-50 text-success px-3 py-1 rounded-full text-sm font-medium">79%</div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-3 mb-4">
+                            <div class="flex justify-between text-sm">
+                                <span class="text-secondary-500">Keyword Match</span>
+                                <span class="text-text-primary font-medium">74%</span>
+                            </div>
+                            <div class="w-full bg-secondary-200 rounded-full h-2">
+                                <div class="bg-success h-2 rounded-full" style="width: 74%"></div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between">
+                            <div class="flex space-x-2">
+                                <span class="px-2 py-1 bg-primary-50 text-primary-700 text-xs rounded-full">Technology</span>
+                                <span class="px-2 py-1 bg-secondary-100 text-secondary-600 text-xs rounded-full">Remote</span>
+                            </div>
+                            <button onclick="event.stopPropagation(); downloadReport('devops-engineer')" class="text-primary-600 hover:text-primary-700 p-1">
+                                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <!-- Expandable Content -->
+                        <div class="expanded-content hidden mt-6 pt-6 border-t border-secondary-200">
+                            <div class="grid grid-cols-2 gap-4 mb-4">
+                                <div>
+                                    <p class="text-xs text-secondary-500 mb-1">Missing Keywords</p>
+                                    <p class="text-sm text-text-primary">6 identified</p>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-secondary-500 mb-1">Recommendations</p>
+                                    <p class="text-sm text-text-primary">9 suggestions</p>
+                                </div>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button onclick="event.stopPropagation(); viewFullReport('devops-engineer')" class="flex-1 px-3 py-2 bg-primary-600 text-white text-sm rounded-lg hover:bg-primary-700 transition-colors">
+                                    View Full Report
+                                </button>
+                                <button onclick="event.stopPropagation(); reAnalyze('devops-engineer')" class="px-3 py-2 border border-secondary-200 text-secondary-600 text-sm rounded-lg hover:bg-secondary-50 transition-colors">
+                                    Re-analyze
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Table View (Hidden by default) -->
+            <div id="table-view" class="hidden bg-surface rounded-lg shadow-card overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-secondary-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">
+                                    <input type="checkbox" class="comparison-checkbox hidden" />
+                                    Job Title
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">Company</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">Date</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">Score</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">Keywords</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-secondary-500 uppercase tracking-wider">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-secondary-200">
+                            <tr class="hover:bg-secondary-50">
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <input type="checkbox" class="comparison-checkbox hidden mr-3" />
+                                        <div>
+                                            <div class="text-sm font-medium text-text-primary">Senior Software Engineer</div>
+                                            <div class="text-sm text-secondary-500">Technology</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-secondary-500">Google Inc.</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-secondary-500">Aug 17, 2025</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 py-1 text-xs font-medium rounded-full bg-success-50 text-success">85%</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-secondary-500">78% match</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                    <button onclick="viewFullReport('senior-software-engineer')" class="text-primary-600 hover:text-primary-700 mr-3">View</button>
+                                    <button onclick="downloadReport('senior-software-engineer')" class="text-secondary-500 hover:text-secondary-700">Download</button>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-secondary-50">
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <input type="checkbox" class="comparison-checkbox hidden mr-3" />
+                                        <div>
+                                            <div class="text-sm font-medium text-text-primary">Product Manager</div>
+                                            <div class="text-sm text-secondary-500">Technology</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-secondary-500">Microsoft Corporation</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-secondary-500">Aug 16, 2025</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 py-1 text-xs font-medium rounded-full bg-warning-50 text-warning">72%</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-secondary-500">65% match</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                    <button onclick="viewFullReport('product-manager')" class="text-primary-600 hover:text-primary-700 mr-3">View</button>
+                                    <button onclick="downloadReport('product-manager')" class="text-secondary-500 hover:text-secondary-700">Download</button>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-secondary-50">
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <input type="checkbox" class="comparison-checkbox hidden mr-3" />
+                                        <div>
+                                            <div class="text-sm font-medium text-text-primary">UX Designer</div>
+                                            <div class="text-sm text-secondary-500">Design</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-secondary-500">Adobe Systems</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-secondary-500">Aug 14, 2025</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 py-1 text-xs font-medium rounded-full bg-success-50 text-success">91%</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-secondary-500">88% match</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                    <button onclick="viewFullReport('ux-designer')" class="text-primary-600 hover:text-primary-700 mr-3">View</button>
+                                    <button onclick="downloadReport('ux-designer')" class="text-secondary-500 hover:text-secondary-700">Download</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Load More Button -->
+            <div class="text-center mt-8">
+                <button onclick="loadMoreAnalyses()" class="px-6 py-3 border border-secondary-200 text-secondary-600 rounded-lg hover:bg-secondary-50 transition-colors">
+                    Load More Analyses
+                </button>
+            </div>
+        </section>
+
+        <!-- Comparison Panel (Hidden by default) -->
+        <div id="comparison-panel" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+            <div class="bg-surface rounded-lg shadow-floating max-w-4xl w-full max-h-screen overflow-y-auto">
+                <div class="p-6 border-b border-secondary-200">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-lg font-semibold text-text-primary">Compare Analyses</h3>
+                        <button onclick="closeComparison()" class="text-secondary-500 hover:text-secondary-700">
+                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Comparison content will be populated by JavaScript -->
+                        <div class="text-center text-secondary-500 py-8">
+                            Select analyses to compare
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-surface border-t border-secondary-200 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="text-center text-secondary-500 text-sm">
+                <p>&copy; 2025 ATS Resume Checker. All rights reserved.</p>
+                <p class="mt-2">Helping job seekers optimize their resumes for ATS success.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let comparisonMode = false;
+        let selectedAnalyses = [];
+        let currentView = 'card';
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Toggle advanced filters
+        function toggleAdvancedFilters() {
+            const filters = document.getElementById('advanced-filters');
+            const chevron = document.getElementById('filter-chevron');
+            
+            filters.classList.toggle('hidden');
+            chevron.classList.toggle('rotate-180');
+        }
+
+        // Toggle comparison mode
+        function toggleComparisonMode() {
+            comparisonMode = !comparisonMode;
+            const btn = document.getElementById('comparison-btn');
+            const checkboxes = document.querySelectorAll('.comparison-checkbox');
+            
+            if (comparisonMode) {
+                btn.className = 'px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors';
+                btn.innerHTML = `
+                    <svg class="inline h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                    Cancel
+                `;
+                checkboxes.forEach(cb => cb.classList.remove('hidden'));
+            } else {
+                btn.className = 'px-4 py-2 border border-secondary-200 text-secondary-600 rounded-lg hover:bg-secondary-50 transition-colors';
+                btn.innerHTML = `
+                    <svg class="inline h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l3-3 3 3v13M9 19h6M9 19H7a2 2 0 01-2-2V5a2 2 0 012-2h2M9 19v-6a2 2 0 012-2h2a2 2 0 012 2v6" />
+                    </svg>
+                    Compare
+                `;
+                checkboxes.forEach(cb => {
+                    cb.classList.add('hidden');
+                    cb.checked = false;
+                });
+                selectedAnalyses = [];
+            }
+        }
+
+        // Update comparison mode
+        function updateComparisonMode() {
+            const checkedBoxes = document.querySelectorAll('.comparison-checkbox:checked');
+            selectedAnalyses = Array.from(checkedBoxes).map(cb => cb.closest('.analysis-card, tr'));
+            
+            if (selectedAnalyses.length >= 2) {
+                showComparison();
+            }
+        }
+
+        // Show comparison panel
+        function showComparison() {
+            document.getElementById('comparison-panel').classList.remove('hidden');
+        }
+
+        // Close comparison panel
+        function closeComparison() {
+            document.getElementById('comparison-panel').classList.add('hidden');
+        }
+
+        // Toggle view between card and table
+        function toggleView(view) {
+            currentView = view;
+            const cardView = document.getElementById('card-view');
+            const tableView = document.getElementById('table-view');
+            const cardBtn = document.getElementById('card-view-btn');
+            const tableBtn = document.getElementById('table-view-btn');
+            
+            if (view === 'card') {
+                cardView.classList.remove('hidden');
+                tableView.classList.add('hidden');
+                cardBtn.className = 'p-2 bg-primary-50 text-primary-600 rounded-lg';
+                tableBtn.className = 'p-2 text-secondary-500 hover:bg-secondary-50 rounded-lg';
+            } else {
+                cardView.classList.add('hidden');
+                tableView.classList.remove('hidden');
+                tableBtn.className = 'p-2 bg-primary-50 text-primary-600 rounded-lg';
+                cardBtn.className = 'p-2 text-secondary-500 hover:bg-secondary-50 rounded-lg';
+            }
+        }
+
+        // Toggle card expansion
+        function toggleCardExpansion(card) {
+            const expandedContent = card.querySelector('.expanded-content');
+            const isExpanded = !expandedContent.classList.contains('hidden');
+            
+            if (isExpanded) {
+                expandedContent.classList.add('hidden');
+                card.classList.remove('expanded');
+            } else {
+                expandedContent.classList.remove('hidden');
+                card.classList.add('expanded');
+            }
+        }
+
+        // Filter analyses
+        function filterAnalyses() {
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            const dateFilter = document.getElementById('date-filter').value;
+            const scoreFilter = document.getElementById('score-filter').value;
+            const industryFilter = document.getElementById('industry-filter').value;
+            const companyFilter = document.getElementById('company-filter').value;
+            const keywordFilter = document.getElementById('keyword-filter').value;
+            
+            const cards = document.querySelectorAll('.analysis-card');
+            
+            cards.forEach(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const company = card.querySelector('.text-secondary-500').textContent.toLowerCase();
+                
+                let showCard = true;
+                
+                // Search filter
+                if (searchTerm && !title.includes(searchTerm) && !company.includes(searchTerm)) {
+                    showCard = false;
+                }
+                
+                // Additional filters would be implemented here
+                
+                card.style.display = showCard ? 'block' : 'none';
+            });
+        }
+
+        // Download report
+        function downloadReport(analysisId) {
+            // Simulate download
+            alert(`Downloading report for ${analysisId}...`);
+        }
+
+        // Download all reports
+        function downloadAllReports() {
+            alert('Downloading all reports as ZIP file...');
+        }
+
+        // View full report
+        function viewFullReport(analysisId) {
+            // Navigate to results dashboard
+            window.location.href = 'ats_score_results_dashboard.html';
+        }
+
+        // Re-analyze
+        function reAnalyze(analysisId) {
+            // Navigate to upload page
+            window.location.href = 'resume_upload_analysis.html';
+        }
+
+        // Load more analyses
+        function loadMoreAnalyses() {
+            alert('Loading more analyses...');
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set initial view
+            toggleView('card');
+        });
+    </script>
+<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+</body>
+</html>

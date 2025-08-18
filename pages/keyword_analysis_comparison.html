@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Keyword Analysis & Comparison - ATS Resume Checker</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fatsresume8515back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.6"></script>
+</head>
+<body class="bg-background min-h-screen font-inter">
+    <!-- Header Navigation -->
+    <header class="bg-surface shadow-card sticky top-0 z-50">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <svg class="h-8 w-8 text-primary-600" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="4" y="6" width="24" height="20" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
+                            <path d="M8 12h16M8 16h12M8 20h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            <circle cx="24" cy="8" r="3" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <h1 class="text-xl font-semibold text-text-primary">ATS Resume Checker</h1>
+                    </div>
+                </div>
+
+                <!-- Navigation Links -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="resume_upload_analysis.html" class="text-secondary-500 hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors">Upload</a>
+                        <a href="ats_score_results_dashboard.html" class="text-secondary-500 hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors">Results</a>
+                        <a href="keyword_analysis_comparison.html" class="bg-primary-50 text-primary-700 px-3 py-2 rounded-md text-sm font-medium">Keywords</a>
+                        <a href="resume_optimization_recommendations.html" class="text-secondary-500 hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors">Optimize</a>
+                        <a href="analysis_history_reports.html" class="text-secondary-500 hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors">History</a>
+                    </div>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button type="button" class="text-secondary-500 hover:text-text-primary p-2" onclick="toggleMobileMenu()">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile menu -->
+            <div id="mobile-menu" class="md:hidden hidden">
+                <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-surface border-t border-secondary-200">
+                    <a href="resume_upload_analysis.html" class="text-secondary-500 hover:text-text-primary block px-3 py-2 rounded-md text-base font-medium">Upload</a>
+                    <a href="ats_score_results_dashboard.html" class="text-secondary-500 hover:text-text-primary block px-3 py-2 rounded-md text-base font-medium">Results</a>
+                    <a href="keyword_analysis_comparison.html" class="bg-primary-50 text-primary-700 block px-3 py-2 rounded-md text-base font-medium">Keywords</a>
+                    <a href="resume_optimization_recommendations.html" class="text-secondary-500 hover:text-text-primary block px-3 py-2 rounded-md text-base font-medium">Optimize</a>
+                    <a href="analysis_history_reports.html" class="text-secondary-500 hover:text-text-primary block px-3 py-2 rounded-md text-base font-medium">History</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Page Header -->
+        <section class="mb-8">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                    <h1 class="text-3xl font-semibold text-text-primary mb-2">
+                        Keyword Analysis & Comparison
+                    </h1>
+                    <p class="text-secondary-500">
+                        Detailed keyword matching insights between your resume and job requirements
+                    </p>
+                </div>
+                <div class="mt-4 sm:mt-0 flex space-x-3">
+                    <button onclick="exportKeywords()" class="px-4 py-2 bg-secondary-100 text-secondary-600 rounded-lg hover:bg-secondary-200 transition-colors">
+                        <svg class="inline h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                        </svg>
+                        Export
+                    </button>
+                    <button onclick="refreshAnalysis()" class="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors">
+                        <svg class="inline h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                        </svg>
+                        Refresh
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Analysis Summary Cards -->
+        <section class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="bg-surface rounded-lg shadow-card p-6">
+                <div class="flex items-center">
+                    <div class="p-2 bg-success-100 rounded-lg">
+                        <svg class="h-6 w-6 text-success" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-secondary-500">Matched Keywords</p>
+                        <p class="text-2xl font-semibold text-text-primary">24</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-surface rounded-lg shadow-card p-6">
+                <div class="flex items-center">
+                    <div class="p-2 bg-warning-100 rounded-lg">
+                        <svg class="h-6 w-6 text-warning" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"/>
+                        </svg>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-secondary-500">Missing Keywords</p>
+                        <p class="text-2xl font-semibold text-text-primary">12</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-surface rounded-lg shadow-card p-6">
+                <div class="flex items-center">
+                    <div class="p-2 bg-primary-100 rounded-lg">
+                        <svg class="h-6 w-6 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                        </svg>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-secondary-500">Match Score</p>
+                        <p class="text-2xl font-semibold text-text-primary">67%</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-surface rounded-lg shadow-card p-6">
+                <div class="flex items-center">
+                    <div class="p-2 bg-accent-100 rounded-lg">
+                        <svg class="h-6 w-6 text-accent-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-secondary-500">Priority Actions</p>
+                        <p class="text-2xl font-semibold text-text-primary">8</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Search and Filter Controls -->
+        <section class="bg-surface rounded-lg shadow-card p-6 mb-8">
+            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+                <div class="flex-1 max-w-md">
+                    <div class="relative">
+                        <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-secondary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        </svg>
+                        <input type="text" id="keyword-search" placeholder="Search keywords..." class="w-full pl-10 pr-4 py-2 border border-secondary-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent" oninput="filterKeywords()" />
+                    </div>
+                </div>
+                
+                <div class="flex flex-wrap gap-3">
+                    <select id="sort-filter" onchange="sortKeywords()" class="px-3 py-2 border border-secondary-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+                        <option value="relevance">Sort by Relevance</option>
+                        <option value="frequency">Sort by Frequency</option>
+                        <option value="alphabetical">Sort Alphabetically</option>
+                    </select>
+                    
+                    <select id="category-filter" onchange="filterByCategory()" class="px-3 py-2 border border-secondary-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+                        <option value="all">All Categories</option>
+                        <option value="matched">Matched Only</option>
+                        <option value="missing">Missing Only</option>
+                        <option value="high-priority">High Priority</option>
+                    </select>
+                    
+                    <button onclick="resetFilters()" class="px-4 py-2 text-secondary-600 hover:text-text-primary transition-colors">
+                        <svg class="inline h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                        </svg>
+                        Reset
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tabbed Navigation -->
+        <section class="mb-8">
+            <div class="border-b border-secondary-200">
+                <nav class="-mb-px flex space-x-8 overflow-x-auto">
+                    <button onclick="switchTab('overview')" id="overview-tab" class="whitespace-nowrap py-2 px-1 border-b-2 border-primary-600 text-primary-600 font-medium text-sm">
+                        Overview
+                    </button>
+                    <button onclick="switchTab('missing')" id="missing-tab" class="whitespace-nowrap py-2 px-1 border-b-2 border-transparent text-secondary-500 hover:text-text-primary hover:border-secondary-300 font-medium text-sm transition-colors">
+                        Missing Keywords
+                    </button>
+                    <button onclick="switchTab('matched')" id="matched-tab" class="whitespace-nowrap py-2 px-1 border-b-2 border-transparent text-secondary-500 hover:text-text-primary hover:border-secondary-300 font-medium text-sm transition-colors">
+                        Matched Terms
+                    </button>
+                    <button onclick="switchTab('suggestions')" id="suggestions-tab" class="whitespace-nowrap py-2 px-1 border-b-2 border-transparent text-secondary-500 hover:text-text-primary hover:border-secondary-300 font-medium text-sm transition-colors">
+                        Suggestions
+                    </button>
+                </nav>
+            </div>
+        </section>
+
+        <!-- Tab Content -->
+        <div class="grid lg:grid-cols-3 gap-8">
+            <!-- Main Content Area -->
+            <div class="lg:col-span-2">
+                <!-- Overview Tab -->
+                <div id="overview-content" class="tab-content">
+                    <div class="bg-surface rounded-lg shadow-card p-6 mb-6">
+                        <h3 class="text-lg font-semibold text-text-primary mb-4">Keyword Cloud Visualization</h3>
+                        <div id="keyword-cloud" class="min-h-64 flex flex-wrap gap-2 p-4 bg-secondary-50 rounded-lg">
+                            <!-- Matched Keywords (larger, green) -->
+                            <span class="keyword-tag matched text-lg px-3 py-2 bg-success-100 text-success-700 rounded-full cursor-pointer hover:bg-success-200 transition-colors" onclick="showKeywordContext('javascript')">JavaScript</span>
+                            <span class="keyword-tag matched text-base px-3 py-1 bg-success-100 text-success-700 rounded-full cursor-pointer hover:bg-success-200 transition-colors" onclick="showKeywordContext('react')">React</span>
+                            <span class="keyword-tag matched text-lg px-3 py-2 bg-success-100 text-success-700 rounded-full cursor-pointer hover:bg-success-200 transition-colors" onclick="showKeywordContext('nodejs')">Node.js</span>
+                            <span class="keyword-tag matched text-sm px-2 py-1 bg-success-100 text-success-700 rounded-full cursor-pointer hover:bg-success-200 transition-colors" onclick="showKeywordContext('mongodb')">MongoDB</span>
+                            <span class="keyword-tag matched text-base px-3 py-1 bg-success-100 text-success-700 rounded-full cursor-pointer hover:bg-success-200 transition-colors" onclick="showKeywordContext('git')">Git</span>
+                            <span class="keyword-tag matched text-sm px-2 py-1 bg-success-100 text-success-700 rounded-full cursor-pointer hover:bg-success-200 transition-colors" onclick="showKeywordContext('agile')">Agile</span>
+                            
+                            <!-- Missing Keywords (smaller, red) -->
+                            <span class="keyword-tag missing text-base px-3 py-1 bg-error-100 text-error-700 rounded-full cursor-pointer hover:bg-error-200 transition-colors" onclick="showKeywordContext('typescript')">TypeScript</span>
+                            <span class="keyword-tag missing text-sm px-2 py-1 bg-error-100 text-error-700 rounded-full cursor-pointer hover:bg-error-200 transition-colors" onclick="showKeywordContext('docker')">Docker</span>
+                            <span class="keyword-tag missing text-base px-3 py-1 bg-error-100 text-error-700 rounded-full cursor-pointer hover:bg-error-200 transition-colors" onclick="showKeywordContext('kubernetes')">Kubernetes</span>
+                            <span class="keyword-tag missing text-sm px-2 py-1 bg-error-100 text-error-700 rounded-full cursor-pointer hover:bg-error-200 transition-colors" onclick="showKeywordContext('aws')">AWS</span>
+                            <span class="keyword-tag missing text-sm px-2 py-1 bg-error-100 text-error-700 rounded-full cursor-pointer hover:bg-error-200 transition-colors" onclick="showKeywordContext('microservices')">Microservices</span>
+                            
+                            <!-- Partial Matches (medium, yellow) -->
+                            <span class="keyword-tag partial text-base px-3 py-1 bg-warning-100 text-warning-700 rounded-full cursor-pointer hover:bg-warning-200 transition-colors" onclick="showKeywordContext('testing')">Testing</span>
+                            <span class="keyword-tag partial text-sm px-2 py-1 bg-warning-100 text-warning-700 rounded-full cursor-pointer hover:bg-warning-200 transition-colors" onclick="showKeywordContext('ci-cd')">CI/CD</span>
+                        </div>
+                        <p class="text-sm text-secondary-500 mt-4">
+                            <span class="inline-block w-3 h-3 bg-success-100 rounded-full mr-2"></span>Matched
+                            <span class="inline-block w-3 h-3 bg-error-100 rounded-full mr-2 ml-4"></span>Missing
+                            <span class="inline-block w-3 h-3 bg-warning-100 rounded-full mr-2 ml-4"></span>Partial Match
+                        </p>
+                    </div>
+
+                    <div class="bg-surface rounded-lg shadow-card p-6">
+                        <h3 class="text-lg font-semibold text-text-primary mb-4">Match Distribution</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span class="text-secondary-600">Technical Skills</span>
+                                    <span class="text-text-primary font-medium">75%</span>
+                                </div>
+                                <div class="w-full bg-secondary-200 rounded-full h-2">
+                                    <div class="bg-success h-2 rounded-full" style="width: 75%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span class="text-secondary-600">Soft Skills</span>
+                                    <span class="text-text-primary font-medium">60%</span>
+                                </div>
+                                <div class="w-full bg-secondary-200 rounded-full h-2">
+                                    <div class="bg-warning h-2 rounded-full" style="width: 60%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span class="text-secondary-600">Industry Terms</span>
+                                    <span class="text-text-primary font-medium">45%</span>
+                                </div>
+                                <div class="w-full bg-secondary-200 rounded-full h-2">
+                                    <div class="bg-error h-2 rounded-full" style="width: 45%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Missing Keywords Tab -->
+                <div id="missing-content" class="tab-content hidden">
+                    <div class="space-y-4">
+                        <div class="bg-surface rounded-lg shadow-card p-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-lg font-semibold text-text-primary">High Priority Missing Keywords</h3>
+                                <span class="px-2 py-1 bg-error-100 text-error-700 text-xs font-medium rounded-full">Critical</span>
+                            </div>
+                            <div class="space-y-3">
+                                <div class="p-4 border border-error-200 rounded-lg bg-error-50">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="font-medium text-text-primary">TypeScript</span>
+                                        <div class="flex items-center space-x-2">
+                                            <span class="text-xs text-error-600 bg-error-100 px-2 py-1 rounded">High Impact</span>
+                                            <span class="text-xs text-secondary-500">Mentioned 8 times</span>
+                                        </div>
+                                    </div>
+                                    <p class="text-sm text-secondary-600 mb-2">Strongly typed programming language that builds on JavaScript</p>
+                                    <div class="flex items-center text-sm text-secondary-500">
+                                        <svg class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                        </svg>
+                                        Suggested placement: Technical Skills section
+                                    </div>
+                                </div>
+
+                                <div class="p-4 border border-error-200 rounded-lg bg-error-50">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="font-medium text-text-primary">Docker</span>
+                                        <div class="flex items-center space-x-2">
+                                            <span class="text-xs text-error-600 bg-error-100 px-2 py-1 rounded">High Impact</span>
+                                            <span class="text-xs text-secondary-500">Mentioned 6 times</span>
+                                        </div>
+                                    </div>
+                                    <p class="text-sm text-secondary-600 mb-2">Containerization platform for developing and deploying applications</p>
+                                    <div class="flex items-center text-sm text-secondary-500">
+                                        <svg class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                        </svg>
+                                        Suggested placement: DevOps/Tools section
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-surface rounded-lg shadow-card p-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-lg font-semibold text-text-primary">Medium Priority Missing Keywords</h3>
+                                <span class="px-2 py-1 bg-warning-100 text-warning-700 text-xs font-medium rounded-full">Important</span>
+                            </div>
+                            <div class="grid gap-3">
+                                <div class="p-3 border border-warning-200 rounded-lg bg-warning-50">
+                                    <div class="flex items-center justify-between">
+                                        <span class="font-medium text-text-primary">Kubernetes</span>
+                                        <span class="text-xs text-secondary-500">Mentioned 4 times</span>
+                                    </div>
+                                    <p class="text-sm text-secondary-600 mt-1">Container orchestration platform</p>
+                                </div>
+                                <div class="p-3 border border-warning-200 rounded-lg bg-warning-50">
+                                    <div class="flex items-center justify-between">
+                                        <span class="font-medium text-text-primary">AWS</span>
+                                        <span class="text-xs text-secondary-500">Mentioned 5 times</span>
+                                    </div>
+                                    <p class="text-sm text-secondary-600 mt-1">Amazon Web Services cloud platform</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Matched Terms Tab -->
+                <div id="matched-content" class="tab-content hidden">
+                    <div class="space-y-4">
+                        <div class="bg-surface rounded-lg shadow-card p-6">
+                            <h3 class="text-lg font-semibold text-text-primary mb-4">Strong Matches</h3>
+                            <div class="space-y-3">
+                                <div class="p-4 border border-success-200 rounded-lg bg-success-50">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="font-medium text-text-primary">JavaScript</span>
+                                        <div class="flex items-center space-x-2">
+                                            <span class="text-xs text-success-600 bg-success-100 px-2 py-1 rounded">95% Match</span>
+                                            <button onclick="showKeywordContext('javascript')" class="text-xs text-primary-600 hover:text-primary-700">View Context</button>
+                                        </div>
+                                    </div>
+                                    <p class="text-sm text-secondary-600 mb-2">Found in: Technical Skills, Experience sections</p>
+                                    <div class="text-sm text-secondary-500 bg-white p-2 rounded border-l-4 border-success">
+                                        "Developed dynamic web applications using <strong>JavaScript</strong> ES6+ features..."
+                                    </div>
+                                </div>
+
+                                <div class="p-4 border border-success-200 rounded-lg bg-success-50">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="font-medium text-text-primary">React</span>
+                                        <div class="flex items-center space-x-2">
+                                            <span class="text-xs text-success-600 bg-success-100 px-2 py-1 rounded">90% Match</span>
+                                            <button onclick="showKeywordContext('react')" class="text-xs text-primary-600 hover:text-primary-700">View Context</button>
+                                        </div>
+                                    </div>
+                                    <p class="text-sm text-secondary-600 mb-2">Found in: Technical Skills, Projects sections</p>
+                                    <div class="text-sm text-secondary-500 bg-white p-2 rounded border-l-4 border-success">
+                                        "Built responsive user interfaces with <strong>React</strong> and Redux..."
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-surface rounded-lg shadow-card p-6">
+                            <h3 class="text-lg font-semibold text-text-primary mb-4">Partial Matches</h3>
+                            <div class="space-y-3">
+                                <div class="p-4 border border-warning-200 rounded-lg bg-warning-50">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="font-medium text-text-primary">Testing</span>
+                                        <span class="text-xs text-warning-600 bg-warning-100 px-2 py-1 rounded">65% Match</span>
+                                    </div>
+                                    <p class="text-sm text-secondary-600 mb-2">Job requires: "Unit testing, Integration testing"</p>
+                                    <p class="text-sm text-secondary-600">Your resume mentions: "Quality assurance testing"</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Suggestions Tab -->
+                <div id="suggestions-content" class="tab-content hidden">
+                    <div class="space-y-4">
+                        <div class="bg-surface rounded-lg shadow-card p-6">
+                            <h3 class="text-lg font-semibold text-text-primary mb-4">Action Items</h3>
+                            <div class="space-y-4">
+                                <div class="border border-secondary-200 rounded-lg overflow-hidden">
+                                    <div class="p-4 bg-secondary-50 cursor-pointer" onclick="toggleActionItem('action-1')">
+                                        <div class="flex items-center justify-between">
+                                            <div class="flex items-center">
+                                                <span class="w-2 h-2 bg-error rounded-full mr-3"></span>
+                                                <span class="font-medium text-text-primary">Add TypeScript to Technical Skills</span>
+                                            </div>
+                                            <div class="flex items-center space-x-2">
+                                                <span class="text-xs bg-error-100 text-error-700 px-2 py-1 rounded">High Impact</span>
+                                                <span class="text-xs bg-success-100 text-success-700 px-2 py-1 rounded">Easy</span>
+                                                <svg class="h-4 w-4 text-secondary-400 transform transition-transform" id="action-1-icon">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="action-1" class="hidden p-4 border-t border-secondary-200">
+                                        <p class="text-sm text-secondary-600 mb-3">
+                                            TypeScript is mentioned 8 times in the job description. Adding it to your technical skills section will significantly improve your ATS score.
+                                        </p>
+                                        <div class="bg-primary-50 p-3 rounded-lg mb-3">
+                                            <p class="text-sm font-medium text-primary-700 mb-1">Suggested addition:</p>
+                                            <p class="text-sm text-primary-600">"TypeScript, JavaScript ES6+, React, Node.js"</p>
+                                        </div>
+                                        <button class="text-sm bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors">
+                                            Mark as Completed
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="border border-secondary-200 rounded-lg overflow-hidden">
+                                    <div class="p-4 bg-secondary-50 cursor-pointer" onclick="toggleActionItem('action-2')">
+                                        <div class="flex items-center justify-between">
+                                            <div class="flex items-center">
+                                                <span class="w-2 h-2 bg-warning rounded-full mr-3"></span>
+                                                <span class="font-medium text-text-primary">Enhance Testing Experience</span>
+                                            </div>
+                                            <div class="flex items-center space-x-2">
+                                                <span class="text-xs bg-warning-100 text-warning-700 px-2 py-1 rounded">Medium Impact</span>
+                                                <span class="text-xs bg-warning-100 text-warning-700 px-2 py-1 rounded">Medium</span>
+                                                <svg class="h-4 w-4 text-secondary-400 transform transition-transform" id="action-2-icon">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="action-2" class="hidden p-4 border-t border-secondary-200">
+                                        <p class="text-sm text-secondary-600 mb-3">
+                                            The job description emphasizes "unit testing" and "integration testing" but your resume only mentions "testing" generally.
+                                        </p>
+                                        <div class="bg-primary-50 p-3 rounded-lg mb-3">
+                                            <p class="text-sm font-medium text-primary-700 mb-1">Suggested enhancement:</p>
+                                            <p class="text-sm text-primary-600">"Implemented comprehensive unit testing and integration testing using Jest and React Testing Library"</p>
+                                        </div>
+                                        <button class="text-sm bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors">
+                                            Mark as Completed
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="lg:col-span-1">
+                <!-- Context Panel -->
+                <div class="bg-surface rounded-lg shadow-card p-6 mb-6">
+                    <h3 class="text-lg font-semibold text-text-primary mb-4">Keyword Context</h3>
+                    <div id="context-panel">
+                        <div class="text-center py-8">
+                            <svg class="mx-auto h-12 w-12 text-secondary-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <p class="text-secondary-500">Click on any keyword to see its context in your resume and the job description.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="bg-surface rounded-lg shadow-card p-6 mb-6">
+                    <h3 class="text-lg font-semibold text-text-primary mb-4">Analysis Stats</h3>
+                    <div class="space-y-3">
+                        <div class="flex justify-between">
+                            <span class="text-sm text-secondary-600">Total Keywords Analyzed</span>
+                            <span class="text-sm font-medium text-text-primary">156</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-sm text-secondary-600">Unique Matches</span>
+                            <span class="text-sm font-medium text-text-primary">24</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-sm text-secondary-600">Critical Missing</span>
+                            <span class="text-sm font-medium text-error">8</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-sm text-secondary-600">Improvement Potential</span>
+                            <span class="text-sm font-medium text-primary-600">+18%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="bg-surface rounded-lg shadow-card p-6">
+                    <h3 class="text-lg font-semibold text-text-primary mb-4">Quick Actions</h3>
+                    <div class="space-y-3">
+                        <button onclick="window.location.href='resume_optimization_recommendations.html'" class="w-full text-left p-3 rounded-lg border border-secondary-200 hover:bg-secondary-50 transition-colors">
+                            <div class="flex items-center">
+                                <svg class="h-5 w-5 text-primary-600 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                                </svg>
+                                <div>
+                                    <p class="text-sm font-medium text-text-primary">Get Optimization Tips</p>
+                                    <p class="text-xs text-secondary-500">View detailed recommendations</p>
+                                </div>
+                            </div>
+                        </button>
+                        
+                        <button onclick="window.location.href='ats_score_results_dashboard.html'" class="w-full text-left p-3 rounded-lg border border-secondary-200 hover:bg-secondary-50 transition-colors">
+                            <div class="flex items-center">
+                                <svg class="h-5 w-5 text-primary-600 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                                </svg>
+                                <div>
+                                    <p class="text-sm font-medium text-text-primary">View Full Results</p>
+                                    <p class="text-xs text-secondary-500">Complete ATS analysis</p>
+                                </div>
+                            </div>
+                        </button>
+                        
+                        <button onclick="window.location.href='resume_upload_analysis.html'" class="w-full text-left p-3 rounded-lg border border-secondary-200 hover:bg-secondary-50 transition-colors">
+                            <div class="flex items-center">
+                                <svg class="h-5 w-5 text-primary-600 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                                </svg>
+                                <div>
+                                    <p class="text-sm font-medium text-text-primary">New Analysis</p>
+                                    <p class="text-xs text-secondary-500">Upload different resume</p>
+                                </div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Context Modal -->
+    <div id="context-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-surface rounded-lg shadow-floating max-w-2xl w-full max-h-96 overflow-y-auto">
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 id="modal-title" class="text-lg font-semibold text-text-primary"></h3>
+                        <button onclick="closeModal()" class="text-secondary-400 hover:text-secondary-600">
+                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div id="modal-content" class="space-y-4">
+                        <!-- Content will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-surface border-t border-secondary-200 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="text-center text-secondary-500 text-sm">
+                <p>&copy; 2025 ATS Resume Checker. All rights reserved.</p>
+                <p class="mt-2">Helping job seekers optimize their resumes for ATS success.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let currentTab = 'overview';
+        let filteredKeywords = [];
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Tab switching functionality
+        function switchTab(tab) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+
+            // Remove active state from all tabs
+            document.querySelectorAll('[id$="-tab"]').forEach(tabButton => {
+                tabButton.className = 'whitespace-nowrap py-2 px-1 border-b-2 border-transparent text-secondary-500 hover:text-text-primary hover:border-secondary-300 font-medium text-sm transition-colors';
+            });
+
+            // Show selected tab content
+            document.getElementById(tab + '-content').classList.remove('hidden');
+
+            // Add active state to selected tab
+            document.getElementById(tab + '-tab').className = 'whitespace-nowrap py-2 px-1 border-b-2 border-primary-600 text-primary-600 font-medium text-sm';
+
+            currentTab = tab;
+        }
+
+        // Keyword filtering
+        function filterKeywords() {
+            const searchTerm = document.getElementById('keyword-search').value.toLowerCase();
+            const keywords = document.querySelectorAll('.keyword-tag');
+            
+            keywords.forEach(keyword => {
+                const text = keyword.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    keyword.style.display = 'inline-block';
+                } else {
+                    keyword.style.display = 'none';
+                }
+            });
+        }
+
+        // Sort keywords
+        function sortKeywords() {
+            const sortBy = document.getElementById('sort-filter').value;
+            const container = document.getElementById('keyword-cloud');
+            const keywords = Array.from(container.children);
+
+            keywords.sort((a, b) => {
+                switch (sortBy) {
+                    case 'alphabetical':
+                        return a.textContent.localeCompare(b.textContent);
+                    case 'frequency':
+                        // Mock frequency sorting based on text size classes
+                        const sizeA = a.classList.contains('text-lg') ? 3 : a.classList.contains('text-base') ? 2 : 1;
+                        const sizeB = b.classList.contains('text-lg') ? 3 : b.classList.contains('text-base') ? 2 : 1;
+                        return sizeB - sizeA;
+                    case 'relevance':
+                    default:
+                        // Sort by match status (matched first, then partial, then missing)
+                        const orderA = a.classList.contains('matched') ? 1 : a.classList.contains('partial') ? 2 : 3;
+                        const orderB = b.classList.contains('matched') ? 1 : b.classList.contains('partial') ? 2 : 3;
+                        return orderA - orderB;
+                }
+            });
+
+            // Re-append sorted keywords
+            keywords.forEach(keyword => container.appendChild(keyword));
+        }
+
+        // Filter by category
+        function filterByCategory() {
+            const category = document.getElementById('category-filter').value;
+            const keywords = document.querySelectorAll('.keyword-tag');
+
+            keywords.forEach(keyword => {
+                let show = true;
+                switch (category) {
+                    case 'matched':
+                        show = keyword.classList.contains('matched');
+                        break;
+                    case 'missing':
+                        show = keyword.classList.contains('missing');
+                        break;
+                    case 'high-priority':
+                        show = keyword.classList.contains('missing') && 
+                               ['typescript', 'docker', 'kubernetes', 'aws'].includes(keyword.textContent.toLowerCase());
+                        break;
+                    case 'all':
+                    default:
+                        show = true;
+                }
+                keyword.style.display = show ? 'inline-block' : 'none';
+            });
+        }
+
+        // Reset filters
+        function resetFilters() {
+            document.getElementById('keyword-search').value = '';
+            document.getElementById('sort-filter').value = 'relevance';
+            document.getElementById('category-filter').value = 'all';
+            
+            const keywords = document.querySelectorAll('.keyword-tag');
+            keywords.forEach(keyword => {
+                keyword.style.display = 'inline-block';
+            });
+            
+            sortKeywords();
+        }
+
+        // Show keyword context
+        function showKeywordContext(keyword) {
+            const modal = document.getElementById('context-modal');
+            const title = document.getElementById('modal-title');
+            const content = document.getElementById('modal-content');
+
+            title.textContent = keyword.charAt(0).toUpperCase() + keyword.slice(1) + ' - Context Analysis';
+
+            // Mock context data
+            const contextData = {
+                javascript: {
+                    resume: "Developed dynamic web applications using JavaScript ES6+ features including arrow functions, destructuring, and async/await patterns.",
+                    jobDescription: "Strong proficiency in JavaScript, including DOM manipulation and the JavaScript object model.",
+                    matchScore: 95,
+                    frequency: { resume: 12, job: 8 }
+                },
+                react: {
+                    resume: "Built responsive user interfaces with React and Redux, implementing component-based architecture and state management.",
+                    jobDescription: "Experience with React.js and its core principles, including virtual DOM and component lifecycle.",
+                    matchScore: 90,
+                    frequency: { resume: 8, job: 6 }
+                },
+                typescript: {
+                    resume: "Not found in resume",
+                    jobDescription: "Strong TypeScript skills required for type-safe development and better code maintainability.",
+                    matchScore: 0,
+                    frequency: { resume: 0, job: 8 }
+                }
+            };
+
+            const data = contextData[keyword] || {
+                resume: "Context not available",
+                jobDescription: "Context not available",
+                matchScore: 0,
+                frequency: { resume: 0, job: 0 }
+            };
+
+            content.innerHTML = `
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm font-medium text-secondary-600">Match Score</span>
+                        <span class="text-lg font-semibold text-primary-600">${data.matchScore}%</span>
+                    </div>
+                    
+                    <div>
+                        <h4 class="text-sm font-medium text-text-primary mb-2">In Your Resume (${data.frequency.resume} mentions)</h4>
+                        <div class="p-3 bg-success-50 rounded-lg border-l-4 border-success">
+                            <p class="text-sm text-secondary-700">${data.resume}</p>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 class="text-sm font-medium text-text-primary mb-2">In Job Description (${data.frequency.job} mentions)</h4>
+                        <div class="p-3 bg-primary-50 rounded-lg border-l-4 border-primary-600">
+                            <p class="text-sm text-secondary-700">${data.jobDescription}</p>
+                        </div>
+                    </div>
+                    
+                    ${data.matchScore === 0 ? `
+                        <div class="p-3 bg-error-50 rounded-lg border border-error-200">
+                            <p class="text-sm font-medium text-error-700 mb-1">Recommendation</p>
+                            <p class="text-sm text-error-600">Consider adding this keyword to your resume to improve ATS compatibility.</p>
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+
+            modal.classList.remove('hidden');
+        }
+
+        // Close modal
+        function closeModal() {
+            document.getElementById('context-modal').classList.add('hidden');
+        }
+
+        // Toggle action items
+        function toggleActionItem(itemId) {
+            const item = document.getElementById(itemId);
+            const icon = document.getElementById(itemId + '-icon');
+            
+            if (item.classList.contains('hidden')) {
+                item.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                item.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        // Export keywords
+        function exportKeywords() {
+            const keywords = {
+                matched: ['JavaScript', 'React', 'Node.js', 'MongoDB', 'Git', 'Agile'],
+                missing: ['TypeScript', 'Docker', 'Kubernetes', 'AWS', 'Microservices'],
+                partial: ['Testing', 'CI/CD']
+            };
+            
+            const csvContent = "data:text/csv;charset=utf-8," 
+                + "Category,Keyword,Status\n"
+                + keywords.matched.map(k => `Matched,${k},Found`).join('\n') + '\n'
+                + keywords.missing.map(k => `Missing,${k},Not Found`).join('\n') + '\n'
+                + keywords.partial.map(k => `Partial,${k},Partial Match`).join('\n');
+            
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "keyword_analysis.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Refresh analysis
+        function refreshAnalysis() {
+            // Simulate refresh
+            const button = event.target;
+            const originalText = button.innerHTML;
+            
+            button.innerHTML = `
+                <svg class="animate-spin inline h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Refreshing...
+            `;
+            button.disabled = true;
+            
+            setTimeout(() => {
+                button.innerHTML = originalText;
+                button.disabled = false;
+            }, 2000);
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('context-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set initial tab
+            switchTab('overview');
+        });
+    </script>
+<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+</body>
+</html>

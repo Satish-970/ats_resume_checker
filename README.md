@@ -75,8 +75,8 @@ The app is built with responsive design using Tailwind CSS breakpoints:
 - `2xl`: 1536px and up
 
 ## 🙏 Acknowledgments
-
-- Built with [Rocket.new](https://rocket.new)
 - Powered by HTML and Tailwind CSS
+  ##Any Queries
+  satishpakalapati65@gmail.com
 
-Built with ❤️ on Rocket.new
+
